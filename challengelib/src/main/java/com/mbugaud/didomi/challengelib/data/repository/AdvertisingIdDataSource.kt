@@ -23,7 +23,7 @@ internal class AdvertisingIdDataSource(private val context: Context) {
         GooglePlayServicesNotAvailableException::class,
         GooglePlayServicesRepairableException::class
     )
-    suspend fun getAdvertisingId(): String = withContext(Dispatchers.IO) {
+    internal suspend fun getAdvertisingId(): String = withContext(Dispatchers.IO) {
         // False positive warning with IOException: https://youtrack.jetbrains.com/issue/KTIJ-838
         AdvertisingIdClient.getAdvertisingIdInfo(context).id
     }

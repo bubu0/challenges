@@ -32,7 +32,7 @@ import retrofit2.http.POST
  * Used to connect to Remote Server to send Consent relative data.
  * All dates are converted to ISO-8601 UTC String format.
  */
-interface ConsentService {
+internal interface ConsentService {
 
     @POST("5e14e8122d00002b00167430") // There is no real endpoint here
     suspend fun sendConsent(@Body consentNetworkData: ConsentNetworkData): Response<String>

@@ -17,14 +17,14 @@ internal class ConsentRepository(private val advertisingIdDataSource: Advertisin
      * Retrieve the last consent status saved locally from SharedPreferences.
      * @return The last saved consent status
      */
-    fun getConsentStatus() = consentLocalDataSource.getConsentStatus()
+    internal fun getConsentStatus() = consentLocalDataSource.getConsentStatus()
 
     /**
      * Retrieve if the remote server was updated without any error with the last consent status.
      * This is a local check, we don't ask to the remote server its last saved consent status.
      * @return **true** if the remote server was successfully updated, **false** otherwise.
      */
-    fun isRemotelyUpdated() = consentLocalDataSource.isRemotelyUpdated()
+    internal fun isRemotelyUpdated() = consentLocalDataSource.isRemotelyUpdated()
 
     /**
      * Save the last consent status locally with the current date and then send the consent to
@@ -35,7 +35,7 @@ internal class ConsentRepository(private val advertisingIdDataSource: Advertisin
      * @throws GooglePlayServicesNotAvailableException
      * @throws GooglePlayServicesRepairableException
      */
-    suspend fun updateConsent(consentStatus: ConsentStatus) {
+    internal suspend fun updateConsent(consentStatus: ConsentStatus) {
         // Save the status and the timestamp of the consent from local repository
         consentLocalDataSource.setConsentStatus(consentStatus)
         val currentTimestamp = System.currentTimeMillis()
@@ -57,7 +57,7 @@ internal class ConsentRepository(private val advertisingIdDataSource: Advertisin
      * @throws GooglePlayServicesNotAvailableException
      * @throws GooglePlayServicesRepairableException
      */
-    suspend fun sendConsentToRemote(consentStatus: ConsentStatus) {
+    internal suspend fun sendConsentToRemote(consentStatus: ConsentStatus) {
         val adId = advertisingIdDataSource.getAdvertisingId()
         val consent = ConsentNetworkData(
             consentStatus,
@@ -82,4 +82,4 @@ internal class ConsentRepository(private val advertisingIdDataSource: Advertisin
  * @param message Description of the exception
  * @param responseCode The HTTP response code returned by the remote server
  */
-class ConsentApiException(message: String, val responseCode: Int) : Exception(message)
+internal class ConsentApiException(message: String, val responseCode: Int) : Exception(message)
