@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="didomi_consent_dialog_title">Tired of random ads?</string>
+    <string name="didomi_consent_dialog_message">%s uses your mobile location to offer you personalized ads. Any interest in that?</string>
+    <string name="didomi_consent_accept">Accept</string>
+    <string name="didomi_consent_deny">Deny</string>
+</resources>

@@ -1,0 +1,3 @@
+include ':challengelib'
+include ':app'
+rootProject.name = "ChallengeApp"
