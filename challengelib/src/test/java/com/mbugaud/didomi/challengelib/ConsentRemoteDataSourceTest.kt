@@ -15,7 +15,7 @@ import org.junit.Assert.*
 import java.util.*
 
 /**
- * Test the [ConsentRemoteDataSource].
+ * Test the [ConsentRemoteDataSource] with the [ConsentService].
  */
 class ConsentRemoteDataSourceTest {
 

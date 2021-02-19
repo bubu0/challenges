@@ -75,4 +75,11 @@ internal class ConsentLocalDataSource(private val context: Context) {
     internal fun setIsRemotelyUpdated(isRemotelyUpdated: Boolean) {
         getSharedPreferences().edit().putBoolean(keyConsentIsRemotelyUpdated, isRemotelyUpdated).apply()
     }
+
+    /**
+     * Clear all data from SharedPreferences
+     */
+    internal fun clearData() {
+        getSharedPreferences().edit().clear().apply()
+    }
 }
