@@ -38,7 +38,7 @@ internal interface ConsentService {
     suspend fun sendConsent(@Body consentNetworkData: ConsentNetworkData): Response<String>
 
     companion object {
-        private const val BASE_URL = "http://www.mocky.io/v2/"
+        private const val BASE_URL = "https://www.mocky.io/v2/"
 
         fun create(baseUrl: String = BASE_URL): ConsentService {
             val logger = HttpLoggingInterceptor().apply { level = Level.BODY }

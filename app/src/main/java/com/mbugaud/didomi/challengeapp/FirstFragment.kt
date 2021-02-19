@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.navigation.fragment.findNavController
+import android.widget.Toast
+import com.mbugaud.didomi.challengelib.ConsentManager
+import com.mbugaud.didomi.challengelib.data.ConsentStatus
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -24,8 +26,29 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.button_first).setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        view.findViewById<Button>(R.id.button_show_consent_dialog).setOnClickListener {
+            ConsentManager.instance.showConsentDialog(requireContext())
+        }
+
+        view.findViewById<Button>(R.id.button_show_saved_consent).setOnClickListener {
+            val consent = ConsentManager.instance.getConsentStatus()
+            Toast.makeText(requireContext(), consent.toString(), Toast.LENGTH_SHORT).show()
+        }
+
+        view.findViewById<Button>(R.id.button_accept_consent).setOnClickListener {
+            ConsentManager.instance.setConsentStatus(ConsentStatus.ACCEPTED, {
+                Toast.makeText(requireContext(), "Consent set to ACCEPTED.", Toast.LENGTH_SHORT).show()
+            }, {
+                Toast.makeText(requireContext(), "Fail to set consent to ACCEPTED: $it", Toast.LENGTH_SHORT).show()
+            })
+        }
+
+        view.findViewById<Button>(R.id.button_deny_consent).setOnClickListener {
+            ConsentManager.instance.setConsentStatus(ConsentStatus.DENIED, {
+                Toast.makeText(requireContext(), "Consent set to DENIED.", Toast.LENGTH_SHORT).show()
+            }, {
+                Toast.makeText(requireContext(), "Fail to set consent to DENIED: $it", Toast.LENGTH_SHORT).show()
+            })
         }
     }
 }

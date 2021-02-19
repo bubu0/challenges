@@ -15,10 +15,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         ConsentManager.instance.setUp(this)
-
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            ConsentManager.instance.showConsentDialog(this)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

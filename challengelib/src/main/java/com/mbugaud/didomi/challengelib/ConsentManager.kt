@@ -8,8 +8,7 @@ import com.mbugaud.didomi.challengelib.data.repository.AdvertisingIdDataSource
 import com.mbugaud.didomi.challengelib.data.repository.ConsentLocalDataSource
 import com.mbugaud.didomi.challengelib.data.repository.ConsentRemoteDataSource
 import com.mbugaud.didomi.challengelib.data.repository.ConsentRepository
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 /**
  * Class to manage consent by showing Consent Dialog and save the user's choice.
@@ -49,7 +48,7 @@ class ConsentManager private constructor(applicationContext: Context) {
 
     /**
      * Show a Dialog to user to accept or deny the consent
-     * @param context Activity Context to show the Dialog
+     * @param context Context to build the Dialog
      * @param customTitle Replace the default title if not null
      * @param customMessage Replace the default message if not null
      */
@@ -100,9 +99,13 @@ class ConsentManager private constructor(applicationContext: Context) {
         GlobalScope.launch {
             runCatching {
                 consentRepository.updateConsent(consentStatus)
-                onSuccess?.invoke()
+                withContext(Dispatchers.Main) {
+                    onSuccess?.invoke()
+                }
             }.onFailure {
-                onError?.invoke(it)
+                withContext(Dispatchers.Main) {
+                    onError?.invoke(it)
+                }
             }
         }
     }
